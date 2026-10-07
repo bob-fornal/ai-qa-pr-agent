@@ -211,3 +211,31 @@ Files: `test-type-selection` (new "selection rule" section), `qa-report-format` 
   - `speaker-notes.md`: every slide's notes and timings.
 - Checked in the browser pane: the cover, the pipeline diagram, the guardrails icons and the table slides render and scale to fit. A first check under viewport emulation showed the deck small in a corner; at the pane's real size it was centered and full-width, so that was a quirk of the emulation.
 - Linked from `docs/README.md` and `docs/presentation-guide.md`.
+
+---
+
+## Turn 9: PowerPoint deck for Google Slides
+
+### Prompt
+
+> Build this as a powerpoint deck to be imported into Google Slides
+
+- Built `docs/presentation/ai-qa-pr-agent.pptx` with `pptxgenjs`, using the PowerPoint skill's approach for structured decks:
+  - a named theme (navy, cream, orange, blue, teal, the same palette as the online deck)
+  - four layouts: light, dark, dark without footer, accent
+  - title placeholders, a footer and slide numbers on the layouts
+  - sections matching the deck outline
+  - real tables
+  - icons from `react-icons` rendered to PNG
+  - speaker notes taken from `source/slides/*.html`
+- Fonts: IBM Plex Sans and JetBrains Mono, both Google Fonts, so they render natively after import into Google Slides.
+- Tooling: `pptxgenjs` and the icon libraries were installed in the session scratchpad, not the repo. The skill's validator needs Python 3.10+, so it ran on Python 3.12 via `uv`. LibreOffice wasn't installed, so the slides were rendered through the locally installed PowerPoint (COM export) for visual QA.
+- QA: the validator passed; the text dump showed 25 slides with 25 sets of notes; every slide was rendered and reviewed. The first render showed:
+  - the goal statement overlapping its icon
+  - a two-line card heading colliding with its body text
+  - centered titles (the deck left-aligns them)
+  - oversized cards
+  - footer captions a little higher than the footer line
+
+  All of these were fixed in the generator and the affected slides were re-rendered.
+- The generator is committed as `docs/presentation/build-pptx.js`. Google Slides import steps are in `docs/presentation-guide.md`.

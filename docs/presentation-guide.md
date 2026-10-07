@@ -7,9 +7,19 @@
 | File | What it is |
 |---|---|
 | [presentation/index.html](presentation/index.html) | Standalone deck. Open it in a browser: ←/→ or Space to move, **N** for speaker notes, **F** for fullscreen, Ctrl+P to print or save as PDF (one slide per page). Fonts load from Google Fonts. Without a connection, fallback fonts are used. |
+| [presentation/ai-qa-pr-agent.pptx](presentation/ai-qa-pr-agent.pptx) | PowerPoint version, built for import into Google Slides: 25 editable slides with speaker notes, a theme, layouts and sections |
 | [presentation/speaker-notes.md](presentation/speaker-notes.md) | Every slide's speaker notes with timings, as Markdown |
 | [presentation/source/](presentation/source/) | The deck's source as published: `deck.json` (order, sections, fonts) and one HTML file per slide |
 | [presentation/build.js](presentation/build.js) | Rebuilds `index.html` and `speaker-notes.md` from `source/`: `node docs/presentation/build.js` |
+| [presentation/build-pptx.js](presentation/build-pptx.js) | Rebuilds the `.pptx`; speaker notes come from `source/`. Its dependencies (`pptxgenjs`, `react-icons`, `sharp`) aren't in this repo; see the header comment |
+
+### Importing into Google Slides
+
+1. Upload `ai-qa-pr-agent.pptx` to Google Drive, then **Open with → Google Slides** (or, in an existing deck, **File → Import slides**).
+2. The deck uses **IBM Plex Sans** and **JetBrains Mono**. Both are Google Fonts, so they render in Google Slides as designed. PowerPoint substitutes them if they aren't installed locally.
+3. Speaker notes import with each slide. Sections (Why, What, How, Demo, Adopt, Questions) are a PowerPoint feature and are dropped by Google Slides.
+
+The PowerPoint version shows the same content as the online deck. Icons are rendered as images, and the matrix and pattern slides use real tables, so they stay editable after import.
 
 The online deck can also be exported to PowerPoint or PDF from its Share menu. In the offline viewer, the three pipeline arrows and four guardrail icons are drawn with plain characters (→, 🔒, ⚠, 🔍, ✓) instead of the Slides runtime's shapes.
 
