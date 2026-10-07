@@ -1,0 +1,16 @@
+<section id="demo-app" data-transition="fade" style="background:#0F1B2D;color:#B8C4D6;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:32px;color:#F28C3A;letter-spacing:2px">DEMO</p>
+<h2 style="font-size:72px;font-weight:600;color:#F6F5F0;line-height:1.1">A small order service, then one risky PR</h2>
+<div style="display:flex;gap:64px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<h3 style="font-size:44px;font-weight:600;color:#F6F5F0">On main</h3>
+<p style="font-size:32px;line-height:1.4">Node, no dependencies. Login with roles, order pricing, discounts, checkout, a JSON store with migrations, a tiny UI, and 13 passing tests.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<h3 style="font-size:44px;font-weight:600;color:#F6F5F0">feature/discount-approval</h3>
+<p style="font-size:32px;line-height:1.4">"Add manager approval for large order discounts." 15 files, +175/−33. Tests still green, apart from one that was quietly skipped.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8C98AA">AI QA PR Agent · 15 · sample-app/ in the repo</p>
+<aside>22:30 to 24:00. The demo uses a deliberately small app so the whole diff fits in your head. Main has a working order service with tests. The feature branch looks like a normal feature PR: the commit message is reasonable, the tests pass. That's the point. A reviewer skimming it would probably approve it. Underneath, we planted a trap for every kind of recommendation the skill can make.</aside>
+</section>

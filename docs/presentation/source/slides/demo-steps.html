@@ -1,0 +1,16 @@
+<section id="demo-steps" data-transition="fade" style="background:#F6F5F0;color:#3D4A5C;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-size:72px;font-weight:600;color:#0F1B2D;line-height:1.1">Running it live</h2>
+<div style="display:flex;flex-direction:column;gap:24px;background:#0F1B2D;padding:40px 48px;border-radius:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:32px;color:#B8C4D6"><span style="color:#F28C3A">Claude Code</span>  /pr-qa-review feature/discount-approval --save</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:32px;color:#B8C4D6"><span style="color:#F28C3A">Copilot   </span>  /qa-pr feature/discount-approval</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:32px;color:#B8C4D6"><span style="color:#F28C3A">Once on GitHub</span>  /pr-qa-review 1</p>
+</div>
+<ol style="font-size:32px;line-height:1.5">
+<li>Show the diff summary: 15 files, nothing alarming on the surface</li>
+<li>Run the skill; narrate the change map while it works (about 3 minutes)</li>
+<li>Open the saved report in qa-reports/ and walk the matrix</li>
+<li>Find the quoted prompt-injection line under Open Questions</li>
+</ol>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5E6979">AI QA PR Agent · 17 · backup: qa-reports/feature-discount-approval-test-recommendations.md</p>
+<aside>26:00 to 30:00. Live demo. Without gh, use branch mode, which diffs the branch against main. Pushed to GitHub, pass the PR number instead. The run takes about three minutes; talk through what it's doing: fetching the diff, sorting files into categories, then searching for callers of calculateTotal, hasRole and the new routes. If the network or the demo fails, open the saved report in qa-reports; it's the real output from the run used to build this deck. For a 30-minute slot, skip the live run and go straight to the saved report.</aside>
+</section>

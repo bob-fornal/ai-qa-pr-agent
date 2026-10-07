@@ -1,0 +1,13 @@
+<section id="report" data-transition="fade" style="background:#F6F5F0;color:#3D4A5C;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-size:72px;font-weight:600;color:#0F1B2D;line-height:1.1">The matrix is the part people read</h2>
+<table style="font-size:26px;color:#3D4A5C">
+<tr><th style="width:8%;color:#0F1B2D">ID</th><th style="width:32%;color:#0F1B2D">Critical path</th><th style="width:14%;color:#0F1B2D">Priority</th><th style="width:15%;color:#2456B8">Automated</th><th style="width:13%;color:#B04E0F">Smoke</th><th style="width:18%;color:#0F6B5E">Manual</th></tr>
+<tr><td>CP-1</td><td>Checkout total with discount</td><td>P0 (20)</td><td>Yes: unit, integration</td><td>Yes: staging, prod</td><td>No</td></tr>
+<tr><td>CP-2</td><td>Manager approves a discount</td><td>P1 (12)</td><td>Yes: role matrix</td><td>Yes: staging</td><td>Yes: exploratory</td></tr>
+<tr><td>CP-3</td><td>Discount table migration</td><td>P1 (10)</td><td>Yes: integration</td><td>Yes: staging, prod</td><td>Yes: data spot-check</td></tr>
+<tr><td>CP-4</td><td>Approval banner</td><td>P2 (6)</td><td>No</td><td>No</td><td>Yes: visual, a11y</td></tr>
+</table>
+<p style="font-size:32px;line-height:1.4">Below the matrix, each path gets its own section: entry points, why it's critical, current coverage, and Given/When/Then ideas for each test type, plus what was left out and why.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5E6979">AI QA PR Agent · 12</p>
+<aside>18:00 to 19:30. This is from the example report bundled with the qa-report-format skill. Read one row across: checkout total is P0 with a score of 20, impact 5 times likelihood 4. It needs automated unit and integration tests, plus a smoke check in staging and prod. No manual testing, because the logic is deterministic and automation covers it better. The report says so explicitly, which is the "Not recommended" line. Then the overall risk and merge readiness come from simple rules over this table.</aside>
+</section>

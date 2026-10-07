@@ -1,0 +1,15 @@
+<section id="patterns" data-transition="fade" style="background:#F6F5F0;color:#3D4A5C;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-size:72px;font-weight:600;color:#0F1B2D;line-height:1.1">Common patterns the skill applies</h2>
+<table style="font-size:26px;color:#3D4A5C">
+<tr><th style="width:26%;color:#0F1B2D">Change</th><th style="width:26%;color:#2456B8">Automated</th><th style="width:22%;color:#B04E0F">Smoke</th><th style="width:26%;color:#0F6B5E">Manual</th></tr>
+<tr><td>Bug fix</td><td>Regression test that fails without the fix</td><td>No</td><td>Re-run the original repro</td></tr>
+<tr><td>Auth or permissions</td><td>Role matrix, integration level</td><td>Login + one protected action</td><td>Abuse and negative cases</td></tr>
+<tr><td>API contract</td><td>Contract + integration</td><td>Endpoint health per environment</td><td>Only if consumers can't be tested</td></tr>
+<tr><td>DB migration</td><td>Migrate representative data</td><td>App boots, key reads and writes</td><td>Data spot-check in staging</td></tr>
+<tr><td>Dependency upgrade</td><td>Full existing suite</td><td>Startup + core journeys</td><td>Explore affected areas</td></tr>
+<tr><td>Feature flag</td><td>Both flag branches</td><td>Each environment, on and off</td><td>No</td></tr>
+<tr><td>Copy or styling</td><td>Visual regression, if it exists</td><td>No</td><td>Visual and a11y check</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5E6979">AI QA PR Agent · 11</p>
+<aside>16:30 to 18:00. Optional slide if you're short on time. These are the default combinations from the test-type-selection skill. They're defaults, not rules: the agent must still justify each choice for the specific path. Point at the bug-fix row: an automated regression test, plus a human re-running the original reproduction steps. And the feature-flag row: smoke in every environment with the flag both on and off, because flags fail differently per environment.</aside>
+</section>

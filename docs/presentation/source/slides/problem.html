@@ -1,0 +1,19 @@
+<section id="problem" data-transition="fade" style="background:#F6F5F0;color:#3D4A5C;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-size:72px;font-weight:600;color:#0F1B2D;line-height:1.1">The problem: test planning happens in someone's head</h2>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FDFDFB;padding:40px;border:1px solid #DDD9CE;border-radius:16px">
+<h3 style="font-size:44px;font-weight:600;color:#0F1B2D">Diffs hide reach</h3>
+<p style="font-size:32px;line-height:1.4">A three-line change to a shared helper can touch every checkout. The diff never shows the callers.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FDFDFB;padding:40px;border:1px solid #DDD9CE;border-radius:16px">
+<h3 style="font-size:44px;font-weight:600;color:#0F1B2D">QA gets the PR late</h3>
+<p style="font-size:32px;line-height:1.4">Testers rebuild intent from titles and tickets, then guess where the risk is.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FDFDFB;padding:40px;border:1px solid #DDD9CE;border-radius:16px">
+<h3 style="font-size:44px;font-weight:600;color:#0F1B2D">"Test everything"</h3>
+<p style="font-size:32px;line-height:1.4">Without a ranking, effort spreads evenly, and the risky path gets the same ten minutes as the README.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5E6979">AI QA PR Agent · 03</p>
+<aside>2:30 to 4:30. Ask the room: how do you decide what to test on a PR today? Most answers are experience, the PR description, and a checklist. Three failure modes: the diff shows what changed but not who calls it; QA sees the PR late and has to reverse-engineer intent; and without a ranking, everything gets roughly equal attention. The result is either over-testing low-risk changes or missing the one path that matters.</aside>
+</section>

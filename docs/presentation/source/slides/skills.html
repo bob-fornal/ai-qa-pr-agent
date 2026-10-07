@@ -1,0 +1,14 @@
+<section id="skills" data-transition="fade" style="background:#F6F5F0;color:#3D4A5C;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<h2 style="font-size:72px;font-weight:600;color:#0F1B2D;line-height:1.1">Five skills, one source of truth</h2>
+<table style="font-size:28px;color:#3D4A5C">
+<tr><th style="width:34%;color:#0F1B2D">Skill</th><th style="width:66%;color:#0F1B2D">What it holds</th></tr>
+<tr><td style="font-family:'JetBrains Mono', 'Courier New', monospace;color:#B04E0F">pr-qa-review</td><td>The entry point. Runs the pipeline, checks the result, saves the report</td></tr>
+<tr><td style="font-family:'JetBrains Mono', 'Courier New', monospace;color:#B04E0F">pr-change-analysis</td><td>How to get the diff, sort changes into 13 categories, trace callers</td></tr>
+<tr><td style="font-family:'JetBrains Mono', 'Courier New', monospace;color:#B04E0F">critical-path-identification</td><td>15 high-risk categories, scoring scales, P0 to P3 thresholds</td></tr>
+<tr><td style="font-family:'JetBrains Mono', 'Courier New', monospace;color:#B04E0F">test-type-selection</td><td>When to use Manual, Smoke or Automated, and which automated level</td></tr>
+<tr><td style="font-family:'JetBrains Mono', 'Courier New', monospace;color:#B04E0F">qa-report-format</td><td>The report template, risk and readiness rules, a worked example</td></tr>
+</table>
+<p style="font-size:32px;line-height:1.4">All five live in <span style="color:#0F1B2D">.claude/skills/</span>. Claude Code and Copilot both read that folder, so the rules exist in one place.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5E6979">AI QA PR Agent · 08</p>
+<aside>11:00 to 12:30. Skills are Markdown files with a short description that tells the AI when to load them. Four hold knowledge, one orchestrates. The important design decision: the rules live in skills, not in agent prompts. Agents are thin wrappers that say which skills to follow. Copilot in VS Code and the Copilot coding agent read .claude/skills too, so a change to the scoring rubric reaches both tools at once.</aside>
+</section>

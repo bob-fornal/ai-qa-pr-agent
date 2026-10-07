@@ -196,3 +196,18 @@ Files: `test-type-selection` (new "selection rule" section), `qa-report-format` 
 - **Result:** 11 checks, about 28 minutes (9 on P0 paths, 2 on P1). The order follows the skill: setup and the existing suite (expecting exactly one skipped test), boot/health, P0 happy and failure paths, P1, then a flag-off regression. Four checks are written to expose likely defects ("likely fails today"): checkout while pending / review after paid, a `NaN` threshold, the email in the logs, and the deny-list role check. Everything that needs staging, real data, a browser matrix or sign-off is under *Left for QA*, one line per CP.
 - **Verified:** every expected dollar amount and cent value in the checklist was recomputed independently ($48.15, $43.34, $32.26, $33.71, $40.93, $28.89; `paidTotalCents` 4334) and matched.
 - Saved from the agent's hand-back to [qa-reports/pr-1-dev-checks.md](../qa-reports/pr-1-dev-checks.md); the only change was adding the 🔴 marker the format asks for.
+
+---
+
+## Turn 8: Store the presentation in `docs/`
+
+### Prompt
+
+> Store the presentation in the @docs folder.
+
+- Copied the deck's source (`deck.json` and the 25 slide files) into `docs/presentation/source/`, exactly as published. The online Artifact stays the editable original.
+- Those slide files are fragments for the Slides runtime and can't be opened on their own, so `docs/presentation/build.js` generates:
+  - `index.html`: a standalone, dependency-free viewer with keyboard navigation, a speaker-notes panel, fullscreen, and print-to-PDF at one slide per page. The runtime-only elements are drawn with plain characters: the two diagram arrows as →, and the four guardrail icons as 🔒 ⚠ 🔍 ✓.
+  - `speaker-notes.md`: every slide's notes and timings.
+- Checked in the browser pane: the cover, the pipeline diagram, the guardrails icons and the table slides render and scale to fit. A first check under viewport emulation showed the deck small in a corner; at the pane's real size it was centered and full-width, so that was a quirk of the emulation.
+- Linked from `docs/README.md` and `docs/presentation-guide.md`.

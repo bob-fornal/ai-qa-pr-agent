@@ -1,0 +1,34 @@
+<section id="architecture" data-transition="fade" style="background:#0F1B2D;color:#B8C4D6;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-size:72px;font-weight:600;color:#F6F5F0;line-height:1.1">How it works: a four-stage pipeline</h2>
+<div style="display:flex;gap:0px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#1B2B44;padding:32px;border-radius:16px;border:2px solid #2E4466">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#F28C3A">1 · ANALYZE</p>
+<h3 style="font-size:32px;font-weight:600;color:#F6F5F0">Change map</h3>
+<p style="font-size:24px;line-height:1.4">Diff, categories, callers, entry points, existing tests</p>
+</div>
+<x-connector style="width:64px;color:#7FA8F0;border-width:3px"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#1B2B44;padding:32px;border-radius:16px;border:2px solid #2E4466">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#F28C3A">2 · RANK</p>
+<h3 style="font-size:32px;font-weight:600;color:#F6F5F0">Critical paths</h3>
+<p style="font-size:24px;line-height:1.4">Flows, not files. Impact × likelihood gives P0 to P3</p>
+</div>
+<x-connector style="width:64px;color:#7FA8F0;border-width:3px"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#1B2B44;padding:32px;border-radius:16px;border:2px solid #2E4466">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#F28C3A">3 · DECIDE</p>
+<h3 style="font-size:32px;font-weight:600;color:#F6F5F0">Test types</h3>
+<p style="font-size:24px;line-height:1.4">Manual, Smoke and/or Automated, each with a reason</p>
+</div>
+<x-connector style="width:64px;color:#7FA8F0;border-width:3px"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#1B2B44;padding:32px;border-radius:16px;border:2px solid #2E4466">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#F28C3A">4 · REPORT</p>
+<h3 style="font-size:32px;font-weight:600;color:#F6F5F0">Fixed format</h3>
+<p style="font-size:24px;line-height:1.4">Same sections every time, in Claude or Copilot</p>
+</div>
+</div>
+<div style="display:flex;gap:32px">
+<p style="flex:1;font-size:32px;line-height:1.4"><span style="color:#F6F5F0">Claude Code:</span> stage 1 and stages 2–3 run as separate subagents, so each starts with a clean context.</p>
+<p style="flex:1;font-size:32px;line-height:1.4"><span style="color:#F6F5F0">Copilot:</span> one custom agent runs all four stages from the same skill files.</p>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8C98AA">AI QA PR Agent · 07</p>
+<aside>9:00 to 11:00. The core idea: split the job the way a senior QA engineer would. First understand what changed and how far it reaches. Then rank the flows by risk. Then choose the right kind of testing for each one. Then write it up the same way every time. In Claude Code, an orchestrator skill hands stage 1 to one subagent and stages 2 and 3 to another, so the analysis doesn't get crowded out by the diff. In Copilot, one agent runs all four, reading the same skill files.</aside>
+</section>

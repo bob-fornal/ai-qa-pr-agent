@@ -1,0 +1,20 @@
+<section id="scorecard" data-transition="fade" style="background:#F6F5F0;color:#3D4A5C;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<h2 style="font-size:72px;font-weight:600;color:#0F1B2D;line-height:1.1">Scorecard against the answer key</h2>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#0F1B2D;padding:40px;border-radius:16px">
+<p style="font-size:120px;font-weight:700;color:#F28C3A;line-height:1">16/16</p>
+<p style="font-size:32px;color:#F6F5F0">planted traps detected</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FDFDFB;padding:40px;border:1px solid #DDD9CE;border-radius:16px">
+<p style="font-size:120px;font-weight:700;color:#2456B8;line-height:1">8</p>
+<p style="font-size:32px;color:#0F1B2D">real issues we didn't plant</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;background:#FDFDFB;padding:40px;border:1px solid #DDD9CE;border-radius:16px">
+<p style="font-size:120px;font-weight:700;color:#0F6B5E;line-height:1">0</p>
+<p style="font-size:32px;color:#0F1B2D">lines of test code generated</p>
+</div>
+</div>
+<p style="font-size:32px;line-height:1.4">Not planted, still found: managers approving their own discounts, CSV formula injection, a non-numeric threshold silently disabling approval, turning the flag off auto-applying pending discounts, a test that leaks global config, flags on unauthenticated /health, a route matching any /export/ path, a breaking change shipped as a minor version.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5E6979">AI QA PR Agent · 19 · details in docs/sample-pr-evaluation.md</p>
+<aside>33:00 to 35:00. Be honest about what this proves. It's one run, on a small, synthetic PR that we designed, so it's a sanity check, not a benchmark. Still: all 16 planted traps were caught, including the prompt injection, which was quoted and ignored. More interesting are the eight real issues nobody planted, starting with self-approval: nothing stops a manager approving a discount they set, and I did not think of that when writing the sample. The CSV export doesn't escape cells, so an email starting with "=" becomes a spreadsheet formula. That's the kind of thing a tired reviewer misses. The full scorecard is in docs/sample-pr-evaluation.md.</aside>
+</section>

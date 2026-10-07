@@ -1,0 +1,28 @@
+{
+  "v": 4,
+  "createdOnFiles": { "v": 1, "at": "2026-10-07T16:00:00Z" },
+  "lists": "css",
+  "title": "AI QA PR Agent",
+  "cover": "cover",
+  "order": [
+    "cover", "agenda", "problem", "goal",
+    "output", "recs-not-code",
+    "architecture", "skills", "scoring", "test-types", "patterns", "report", "two-tools", "guardrails",
+    "demo-app", "traps", "demo-steps", "results", "scorecard", "lessons",
+    "adopt", "customize", "limits", "next",
+    "qna"
+  ],
+  "sections": {
+    "s1": { "description": "Why: the gap between a PR and knowing what to test", "start": "cover" },
+    "s2": { "description": "What: the report the skill produces", "start": "output" },
+    "s3": { "description": "How: skills, agents, scoring and decision rules", "start": "architecture" },
+    "s4": { "description": "Demo: a planted PR and how the skill handled it", "start": "demo-app" },
+    "s5": { "description": "Adopt: installing, tuning and limits", "start": "adopt" },
+    "s6": { "description": "Questions", "start": "qna" }
+  },
+  "faces": {
+    "ibm-plex-sans": { "family": "IBM Plex Sans", "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" },
+    "jetbrains-mono": { "family": "JetBrains Mono", "href": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" }
+  },
+  "designSystems": []
+}

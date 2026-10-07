@@ -2,6 +2,17 @@
 
 **Deck:** [AI QA PR Agent](https://claude.ai/artifact/PPekX7bmszKahTheTodhXf). 25 slides, with speaker notes and timings on every slide. The deck is private until you share it from its Share menu. It can be exported to PowerPoint or PDF.
 
+**Offline copy:** [presentation/](presentation/) in this repo.
+
+| File | What it is |
+|---|---|
+| [presentation/index.html](presentation/index.html) | Standalone deck. Open it in a browser: ←/→ or Space to move, **N** for speaker notes, **F** for fullscreen, Ctrl+P to print or save as PDF (one slide per page). Fonts load from Google Fonts. Without a connection, fallback fonts are used. |
+| [presentation/speaker-notes.md](presentation/speaker-notes.md) | Every slide's speaker notes with timings, as Markdown |
+| [presentation/source/](presentation/source/) | The deck's source as published: `deck.json` (order, sections, fonts) and one HTML file per slide |
+| [presentation/build.js](presentation/build.js) | Rebuilds `index.html` and `speaker-notes.md` from `source/`: `node docs/presentation/build.js` |
+
+The online deck can also be exported to PowerPoint or PDF from its Share menu. In the offline viewer, the two diagram arrows and four guardrail icons are drawn with plain characters (→, 🔒, ⚠, 🔍, ✓) instead of the Slides runtime's shapes.
+
 **Length:** about 43 minutes of content plus Q&A. It fits 30–50 minutes using the cuts below.
 
 ## Running order

@@ -1,0 +1,23 @@
+<section id="test-types" data-transition="fade" style="background:#F6F5F0;color:#3D4A5C;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<h2 style="font-size:72px;font-weight:600;color:#0F1B2D;line-height:1.1">Three kinds of testing, three different jobs</h2>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FDFDFB;padding:40px;border:1px solid #DDD9CE;border-top:8px solid #2456B8;border-radius:12px">
+<h3 style="font-size:44px;font-weight:600;color:#2456B8">Automated</h3>
+<p style="font-size:28px;line-height:1.4">Repeatable checks in CI: unit, integration, contract, E2E.</p>
+<p style="font-size:28px;line-height:1.4;color:#0F1B2D">Use for: logic, boundaries, contracts, role matrices, every bug fix.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FDFDFB;padding:40px;border:1px solid #DDD9CE;border-top:8px solid #B04E0F;border-radius:12px">
+<h3 style="font-size:44px;font-weight:600;color:#B04E0F">Smoke</h3>
+<p style="font-size:28px;line-height:1.4">Fast pass/fail checks after each deploy. Five minutes or less.</p>
+<p style="font-size:28px;line-height:1.4;color:#0F1B2D">Use for: config, flags, migrations, upgrades, integrations, P0 paths.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FDFDFB;padding:40px;border:1px solid #DDD9CE;border-top:8px solid #0F6B5E;border-radius:12px">
+<h3 style="font-size:44px;font-weight:600;color:#0F6B5E">Manual</h3>
+<p style="font-size:28px;line-height:1.4">A person runs scripted cases or exploratory charters.</p>
+<p style="font-size:28px;line-height:1.4;color:#0F1B2D">Use for: UX, accessibility, new features, third parties with no sandbox.</p>
+</div>
+</div>
+<p style="font-size:32px;line-height:1.4">Each type is optional, but every critical path gets at least one. Every choice, and every omission, carries a reason tied to the path's risk.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5E6979">AI QA PR Agent · 10</p>
+<aside>14:30 to 16:30. Define the terms, because teams use "smoke" to mean five different things. Here, smoke means shallow pass/fail checks in a deployed environment, used to decide whether to keep or roll back a deploy. Automated means anything in CI, and the skill chooses the lowest level that gives confidence. Manual is for judgment calls. Three rules to call out. Each type is optional, but every critical path needs at least one; no type is added just to fill the matrix, and every one left out gets a reason. Every bug fix gets an automated regression test. And E2E is never the default.</aside>
+</section>
