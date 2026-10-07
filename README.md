@@ -7,6 +7,8 @@ Skills and agents for **Claude Code** and **GitHub Copilot** that examine a pull
 
 They produce **recommendations only**. No test code is generated.
 
+A companion **developer pre-QA checklist** (`/pr-dev-checks`) gives the PR author a short set of manual checks to run locally before handing off to QA: at most 12 checks, 15–30 minutes, using the same critical-path IDs as the QA report.
+
 ## How it works
 
 ```
@@ -27,6 +29,11 @@ PR / branch ──► pr-change-analysis ──► critical-path-identification 
 | `pr-qa-reviewer` agent (single pass) | `.claude/agents/` | Claude |
 | `pr-qa-reviewer` custom agent | `.github/agents/pr-qa-reviewer.agent.md` | Copilot |
 | `/qa-pr` prompt | `.github/prompts/qa-pr.prompt.md` | Copilot |
+| `dev-manual-checks` skill (developer checklist rules + format) | `.claude/skills/dev-manual-checks/` | Claude, Copilot |
+| `/pr-dev-checks` entry skill | `.claude/skills/pr-dev-checks/` | Claude |
+| `pr-dev-checklist` agent | `.claude/agents/pr-dev-checklist.md` | Claude |
+| `pr-dev-checklist` custom agent | `.github/agents/pr-dev-checklist.agent.md` | Copilot |
+| `/dev-checks` prompt | `.github/prompts/dev-checks.prompt.md` | Copilot |
 
 The skills are the single source of truth. Both tools read `.claude/skills/`, and the Copilot agent also links to the files directly, so the rubric is never duplicated.
 
@@ -57,6 +64,16 @@ Headless / CI:
 ```bash
 claude -p "/pr-qa-review 482 --save"
 ```
+
+### Developer pre-QA checklist
+
+```text
+/pr-dev-checks 482                  # Claude Code
+/pr-dev-checks 482 --save           # writes qa-reports/pr-482-dev-checks.md
+/dev-checks 482                     # Copilot
+```
+
+Run the QA review first if you want the developer checks to reuse its critical-path IDs. Otherwise the checklist derives them with the same rubric.
 
 ### GitHub Copilot (VS Code)
 

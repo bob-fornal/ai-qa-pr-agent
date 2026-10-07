@@ -40,6 +40,19 @@ The output is **recommendations only**. Nothing in this repository generates tes
 | Single-pass agent | `.claude/agents/pr-qa-reviewer.md` | All four stages in one context; best for headless runs |
 | Copilot agent | `.github/agents/pr-qa-reviewer.agent.md` | Same workflow for Copilot; links to the skill files |
 | Copilot prompt | `.github/prompts/qa-pr.prompt.md` | `/qa-pr <target>` shortcut that selects the agent |
+| Dev checklist skill | `.claude/skills/dev-manual-checks/SKILL.md` | Rules and format for the developer pre-QA checklist: local only, at most 12 checks, 15–30 minutes, aligned CP IDs |
+| Dev checklist entry skill | `.claude/skills/pr-dev-checks/SKILL.md` | User-invocable `/pr-dev-checks`; delegates, verifies, optionally saves |
+| Dev checklist agent | `.claude/agents/pr-dev-checklist.md` / `.github/agents/pr-dev-checklist.agent.md` | Single-pass: change analysis → critical paths → developer checks (Claude / Copilot) |
+| Dev checklist prompt | `.github/prompts/dev-checks.prompt.md` | `/dev-checks <target>` for Copilot |
+
+## Two audiences, one rubric
+
+```
+                     pr-change-analysis ──► critical-path-identification ──┬──► test-type-selection ──► qa-report-format   (QA: full plan)
+                                                                            └──► dev-manual-checks                           (developer: 15–30 min local pass)
+```
+
+Both outputs share the change analysis and the critical-path ranking, so the developer's checks and QA's plan use the same CP IDs. The developer checklist is deliberately shallow and local: it catches "doesn't start / happy path broken / wrong role" before QA spends time, and hands everything environment-specific to QA.
 
 ## Design decisions
 

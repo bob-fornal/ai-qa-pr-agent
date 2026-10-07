@@ -156,4 +156,29 @@ Files: `test-type-selection` (new "selection rule" section), `qa-report-format` 
 - Committed the rule change as `11c8c74`.
 - Ran `pr-qa-reviewer` against PR #1: PR metadata from the public GitHub REST API (`gh` installed but not signed in), diff from `git`. The agent was told not to read the answer key or the earlier report, so the review stayed independent.
 - **Result:** 16/16 traps again, 6 P0 · 4 P1. The new rule showed up as single-type paths where they fit (authorization and the API contract got Automated only; the UI got Manual only), each omission explained. Two new findings: the health check ignores `PORT`, and the change in rounding policy needs finance sign-off. Details: [sample-pr-evaluation.md](sample-pr-evaluation.md#run-2-pr-1-after-the-at-least-one-type-rule).
-- **Problem:** the agent couldn't write its report. It has no write tool, and a single shell heredoc of about 20–30K characters hit the Windows command-length limit. The report was saved to [qa-reports/pr-1-test-recommendations.md](../qa-reports/pr-1-test-recommendations.md) from the agent's hand-back.
+- **Issue:** the agent couldn't write its report. It has no write tool, and a single shell heredoc of about 20–30K characters hit the Windows command-length limit. The report was saved to [qa-reports/pr-1-test-recommendations.md](../qa-reports/pr-1-test-recommendations.md) from the agent's hand-back.
+
+---
+
+## Turn 6: Developer pre-QA checklist
+
+### Prompt
+
+> Let's generate a similar agent that's designed to provide a simple set of manual tests that can be run by the developer in preparation for what will be run by QA.
+
+### Decisions
+
+| Decision | Reasoning |
+|---|---|
+| Reuse `pr-change-analysis` and `critical-path-identification`; add one new skill, `dev-manual-checks` | The developer's checks should cover the same risks as QA's plan. Sharing the rubric keeps the critical-path IDs aligned and avoids a second scoring system. |
+| Reuse CP IDs from an existing QA report in `qa-reports/` when there is one | The developer and QA documents then line up row for row. |
+| Local only; at most 12 checks, 15–30 minutes | The goal is a fast first pass that catches obvious failures, not a second QA plan. Anything needing a deployed environment, real third parties or sign-off goes under *Left for QA*. |
+| Fixed order: setup → existing suite → "it starts" → P0 happy/failure → P1 → one regression | A red suite or a broken start makes everything after it pointless, so those come first. |
+| One start or `curl` command allowed per step, but no test code or scripts | Developers need concrete steps; anything that needs a script belongs in the QA report's automated recommendations. |
+| Output ends with handoff notes and a checklist to paste into the PR | Makes the handoff to QA explicit: config, accounts, defects found, open questions. |
+| Single-pass agent (`pr-dev-checklist`) plus an entry skill (`/pr-dev-checks`) and a Copilot agent + `/dev-checks` prompt | Same pattern as the QA tooling; the job is small enough not to need two stages. |
+
+### Files
+
+- New: `.claude/skills/dev-manual-checks/SKILL.md`, `.claude/skills/pr-dev-checks/SKILL.md`, `.claude/agents/pr-dev-checklist.md`, `.github/agents/pr-dev-checklist.agent.md`, `.github/prompts/dev-checks.prompt.md`
+- Updated: `README.md`, `CLAUDE.md`, `.github/copilot-instructions.md`, `docs/usage-guide.md`, `docs/architecture.md`

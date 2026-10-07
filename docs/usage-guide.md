@@ -61,6 +61,29 @@ In CI, grant only the read-only tools the skill needs, then publish `qa-reports/
 
 > The Copilot agent's `tools` list (`read`, `search`, `execute`, `github/*`) uses GitHub's documented short names. VS Code ignores any it doesn't recognize. If `execute` isn't recognized in your setup, the agent can still use the GitHub tools to read the PR.
 
+## Developer pre-QA checklist
+
+The QA report is for QA. The PR author also needs a quick way to catch obvious failures before handing off. `/pr-dev-checks` produces that:
+
+```text
+/pr-dev-checks 482
+/pr-dev-checks feature/discount-approval --save   # qa-reports/<branch>-dev-checks.md
+```
+
+In Copilot: pick the **pr-dev-checklist** agent, or run `/dev-checks 482`.
+
+| Section | What it gives the developer |
+|---|---|
+| Before You Start | Env vars, flags, seed accounts, start command, and "run the existing suite" |
+| Checks | At most 12 checks (15–30 minutes total), each with concrete steps, a binary expected result, and a hint if it fails |
+| Left for QA | What needs a deployed environment, real third parties, device matrices or sign-off |
+| Handoff Notes for QA | Config to set, accounts used, defects found, open questions |
+| Checklist to Paste into the PR | A checkbox list for the PR description |
+
+Recommended flow: run `/pr-qa-review` and `/pr-dev-checks` on the same PR. The developer works through the checklist and fixes or explains any failures, then QA starts from the full report. When a QA report for the PR exists in `qa-reports/`, the checklist reuses its CP IDs so the two documents line up.
+
+To tune the checklist (time budget, maximum number of checks, what counts as "local"), edit `.claude/skills/dev-manual-checks/SKILL.md`.
+
 ## Reading the report
 
 | Section | Who reads it | Look for |
