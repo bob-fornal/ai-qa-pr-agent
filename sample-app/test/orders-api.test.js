@@ -34,7 +34,7 @@ test('orders API', async (t) => {
     const res = await fetch(`${base}/api/orders/1001`, { headers: auth });
     const order = await res.json();
     assert.equal(res.status, 200);
-    assert.equal(order.total, 48.15);
+    assert.equal(order.totalCents, 4815);
   });
 
   await t.test('checkout marks the order paid', async () => {

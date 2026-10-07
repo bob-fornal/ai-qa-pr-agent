@@ -40,7 +40,7 @@ function createApp({ db = createDb(config.dataFile) } = {}) {
 
     try {
       if (req.method === 'GET' && url.pathname === '/health') {
-        return send(res, 200, { status: 'ok' });
+        return send(res, 200, { status: 'ok', features: config.features });
       }
 
       if (req.method === 'POST' && url.pathname === '/api/login') {
@@ -54,8 +54,21 @@ function createApp({ db = createDb(config.dataFile) } = {}) {
         if (!user) return send(res, 401, { error: 'Unauthorized' });
         const id = parts[2];
 
+        if (req.method === 'GET' && id === 'export') {
+          if (!hasRole(user, ['admin'])) return send(res, 403, { error: 'Forbidden' });
+          const rows = orders.listOrders(db).map((o) =>
+            [o.id, o.customerEmail, o.status, o.discountPct, o.approvalStatus ?? '', o.totalCents].join(','),
+          );
+          const csv = ['id,customerEmail,status,discountPct,approvalStatus,totalCents', ...rows].join('\n');
+          return send(res, 200, csv, 'text/csv');
+        }
         if (req.method === 'GET' && parts.length === 3) {
           return send(res, 200, orders.getOrder(db, id));
+        }
+        if (req.method === 'POST' && parts[3] === 'discount' && parts[4] === 'review') {
+          if (user.role === 'sales') return send(res, 403, { error: 'Only managers can review discounts' });
+          const { decision } = await readJson(req);
+          return send(res, 200, orders.reviewDiscount(db, id, user, decision));
         }
         if (req.method === 'POST' && parts[3] === 'discount') {
           if (!hasRole(user, ['sales', 'manager', 'admin'])) return send(res, 403, { error: 'Forbidden' });
