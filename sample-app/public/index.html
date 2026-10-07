@@ -35,6 +35,11 @@
           <dt>Tax</dt><dd id="tax"></dd>
           <dt>Total</dt><dd id="total"></dd>
         </dl>
+        <div id="approval-banner" class="banner" hidden>
+          Discount pending manager approval
+          <button id="approve" type="button">Approve</button>
+          <button id="reject" type="button">Reject</button>
+        </div>
         <label for="discount-pct">Discount %</label>
         <input id="discount-pct" type="number" min="0" max="50" value="0" />
         <button id="apply-discount" type="button">Apply discount</button>

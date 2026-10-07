@@ -38,3 +38,18 @@ button {
 #message {
   color: #b91c1c;
 }
+
+.banner {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  background: #fef9c3;
+  color: #a3a3a3;
+}
+
+.banner[hidden] {
+  display: none;
+}

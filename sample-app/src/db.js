@@ -33,7 +33,7 @@ function createDb(file = ':memory:') {
 }
 
 function runMigrations(db) {
-  const files = fs.readdirSync(MIGRATIONS_DIR).filter((f) => f.endsWith('.js')).sort();
+  const files = fs.readdirSync(MIGRATIONS_DIR).filter((f) => f.endsWith('.js')).toSorted();
   for (const file of files) {
     if (db.meta.migrations.includes(file)) continue;
     require(path.join(MIGRATIONS_DIR, file)).up(db);
