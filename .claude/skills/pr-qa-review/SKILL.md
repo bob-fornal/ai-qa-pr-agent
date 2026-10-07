@@ -44,7 +44,9 @@ If agents are unavailable, do this yourself following `critical-path-identificat
 Before writing the report, sanity-check the strategist's output against the change map:
 
 - Every high-risk category the diff touches (auth, money, data, contracts, config, dependencies, infra) is either a critical path or explicitly listed as low risk with a reason.
-- Every P0 path has at least two recommended types, or a stated reason why one is enough.
+- Every critical path has **at least one** recommended type (Manual, Smoke or Automated). No type was added without a risk-based reason, and every excluded type has a **Not recommended** reason.
+- A P0 path with only one type states why that type is sufficient.
+- If there are no critical paths, the summary still recommends at least one type for the PR (usually the existing automated suite).
 - Every bug fix has an automated regression recommendation.
 - No recommendation contains code.
 

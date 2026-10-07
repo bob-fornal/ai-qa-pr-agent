@@ -110,3 +110,37 @@ Built as a Claude Slides artifact: [AI QA PR Agent](https://claude.ai/artifact/P
 - **Pushing and opening the PR.** Pushing to `github.com/bob-fornal/ai-qa-pr-agent` and creating the PR are outward-facing, so they were left for the user. Commands are in [sample-pr.md](sample-pr.md).
 - **Sharing the deck.** The artifact is private until it's shared from its Share menu.
 - **A Copilot run** of the sample PR, to compare with the Claude run.
+
+---
+
+## Turn 3: `gh` not installed
+
+### Prompt
+
+> Running into this : *(pasted PowerShell error: `gh : The term 'gh' is not recognized…`)*
+
+The push had already succeeded (both branches were on `origin`); only `gh` was missing. Two options were given: open the PR in the browser via the compare URL and paste [sample-pr-body.md](sample-pr-body.md), or `winget install --id GitHub.cli` followed by `gh auth login`. The user opened [PR #1](https://github.com/bob-fornal/ai-qa-pr-agent/pull/1).
+
+---
+
+## Turn 4: Run against PR #1, then a rule change
+
+### Prompts
+
+> Run the agent against the PR: https://github.com/bob-fornal/ai-qa-pr-agent/pull/1
+
+`gh` was now installed but not signed in. Because the repository is public, the plan was to read PR metadata from the public GitHub REST API and take the diff from `git`. The PR body turned out to be the commit message rather than [sample-pr-body.md](sample-pr-body.md), so trap T17 ("No API changes") still isn't exercised. The user stopped the run before it started to change the rules first:
+
+> Adjust the agent(s) to account for the possibility that there may be no manual, smoke, or automated testing needed, but at least one of the three is needed.
+
+### Change
+
+The old rules nudged P0 paths toward two or more test types ("Every P0 path has at least two recommended types, or a stated reason why one is enough"). They now say:
+
+- **Each type is optional per path.** Manual, Smoke and Automated are chosen independently, only when the path's risk calls for them. Nothing is added for completeness, and there are no quotas by priority.
+- **At least one type per critical path.** A path that would get none isn't critical; it moves to *Low risk / not prioritized*.
+- **Every omission is explained** under *Not recommended*. A P0 with only one type says why one is enough.
+- **A type can be unused across the whole PR.** Its report section then says "None." with a reason.
+- **PR-wide minimum.** If there are no critical paths at all, the summary still recommends at least one type, usually "the existing automated suite must pass in CI".
+
+Files: `test-type-selection` (new "selection rule" section), `qa-report-format` (new matrix rules, "None." with a reason), `pr-qa-review` (verification step), `pr-test-strategist`, `pr-qa-reviewer` (Claude and Copilot self-checks), `docs/architecture.md`. Deck slides 10 and 14 were updated to match.

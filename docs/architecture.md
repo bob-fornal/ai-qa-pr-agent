@@ -53,7 +53,7 @@ Claude Code's orchestrator gives change analysis and test strategy to separate s
 
 - The analyzer reads diffs and searches the codebase. That is token-heavy, and its context fills with raw code.
 - The strategist gets only the structured Change Map, so its context holds the evidence and none of the noise.
-- The orchestrator keeps a clean context for verification: high-risk categories covered, P0 mix justified, bug fixes have regression tests, no code.
+- The orchestrator keeps a clean context for verification: high-risk categories covered, every path has at least one test type (each omitted type explained), bug fixes have regression tests, no code.
 
 Subagents can't spawn subagents, so orchestration lives in the **skill** (which runs in the main conversation), not in an agent. The single-pass `pr-qa-reviewer` exists for places where one agent is simpler, such as CI or the Copilot side.
 

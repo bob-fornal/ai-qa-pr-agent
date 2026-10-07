@@ -6,7 +6,17 @@ user-invocable: false
 
 # Test Type Selection
 
-For each critical path, recommend one or more of **Manual**, **Smoke**, and **Automated** testing, and justify each choice. Combinations are normal. A P0 path often needs automated regression coverage *and* a smoke check after deploy.
+For each critical path, decide **independently** whether it needs **Manual**, **Smoke**, and/or **Automated** testing, and justify each choice.
+
+## The selection rule
+
+- **Each type is optional.** Any one, any two, or all three may apply. Recommend a type only when the path's risk calls for it. Never add one for completeness or to make the matrix look balanced.
+- **At least one type is required.** Every critical path (P0–P2) gets at least one recommended type. A path that seems to need none isn't a critical path: move it to "Low risk / not prioritized" with a reason.
+- **Every exclusion is explained.** Each type *not* recommended for a path gets a one-line reason under **Not recommended** (for example "Manual: deterministic logic, fully covered by unit tests").
+- **No priority quotas.** A P0 path does not automatically need two or three types; one well-chosen type can be enough. If a P0 path gets only one type, state why that one is sufficient.
+- **Report-wide minimum.** Even when every change is low risk (P3) and there are no critical paths, recommend at least one type for the PR as a whole. Usually that's **Automated: the existing suite must pass in CI**. State it in the summary. Don't invent a critical path to hold it.
+
+Combinations are still common. A P0 path often needs automated regression coverage *and* a smoke check after deploy, but only when each one covers a risk the other doesn't.
 
 ## Definitions (use these consistently)
 
@@ -81,15 +91,16 @@ For manual testing, prefer **charters** ("Explore <area> with <resources> to dis
 
 For each `CP-n`, produce:
 
-- **Recommended types:** `Automated (unit, integration)` · `Smoke (staging, prod)` · `Manual (exploratory)`, listing only the ones that apply
+- **Recommended types:** `Automated (unit, integration)` · `Smoke (staging, prod)` · `Manual (exploratory)`, listing only the ones that apply (at least one, at most three)
 - **Rationale:** one or two sentences per type explaining *why this type* for *this risk*
 - **What to verify:** test ideas written as behavior ("Given a user without the `billing:write` role, when they POST /invoices, then 403 and no invoice is created"). Describe them; **do not write test code**.
 - **Existing tests to update or re-run:** by file/name, if known
-- **Not recommended:** any type deliberately excluded and why (for example "E2E not recommended: covered by integration and smoke; E2E would be flaky against the payment sandbox")
+- **Not recommended:** every type (Manual, Smoke, Automated) that was excluded, and why. Also note any automated level deliberately skipped (for example "E2E not recommended: covered by integration and smoke; E2E would be flaky against the payment sandbox"). Omit this line only when all three types are recommended.
 
 ## Guardrails
 
 - Never output test code, scripts, or fixtures. Describe tests in plain language (Given/When/Then is fine).
-- Don't recommend a type without a reason tied to the path's risk.
+- Don't recommend a type without a reason tied to the path's risk, and don't leave a critical path with no type at all.
+- It's fine for one type to be unused across the whole PR (for example no Smoke checks for a library with no deployment). Say so in the report rather than forcing an item.
 - Don't recommend Automated E2E by default. Justify it against lower-level alternatives.
 - If the PR already adds adequate tests for a path, say so and recommend only what's missing.

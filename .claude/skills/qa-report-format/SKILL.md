@@ -6,7 +6,7 @@ user-invocable: false
 
 # QA Report Format
 
-Assemble the final report in **exactly** this structure so reports are consistent across PRs, tools (Claude / Copilot), and reviewers. Omit a section only if it would be empty, and then write "None." under its heading rather than deleting it. See [references/example-report.md](references/example-report.md) for a filled-in example.
+Assemble the final report in **exactly** this structure so reports are consistent across PRs, tools (Claude / Copilot), and reviewers. Never delete a section. If it would be empty, write "None." under its heading with a one-line reason (for example "None. No path depends on environment-specific behavior."). See [references/example-report.md](references/example-report.md) for a filled-in example.
 
 Write for two audiences: a **developer** deciding what tests to add, and a **QA engineer** planning manual and smoke work. Keep sentences short and concrete. Use business language for path names.
 
@@ -25,7 +25,7 @@ Write for two audiences: a **developer** deciding what tests to add, and a **QA 
 | **Overall risk** | 🔴 High / 🟠 Medium / 🟢 Low |
 | **Change scope** | <n> files, +<a>/-<d> lines; categories: <ui, api, …> |
 | **Critical paths** | <P0 count> P0 · <P1 count> P1 · <P2 count> P2 |
-| **Recommended effort** | Automated: <n> items · Smoke: <n> checks · Manual: <n> charters |
+| **Recommended effort** | Automated: <n> items · Smoke: <n> checks · Manual: <n> charters (0 is valid for any one or two of these) |
 | **Merge readiness** | <Ready / Ready after automated gaps closed / Needs QA cycle before release> |
 
 <2–4 sentence plain-language summary: what the PR does, where the risk is, and the single most important thing to test.>
@@ -99,6 +99,13 @@ Existing tests to re-run or that this PR may break: <list or "None identified">
 ```
 
 ---
+
+## Matrix rules
+
+- Every row has **at least one ✅**. Any one or two columns may be "—" for a row.
+- Every "—" is explained under that path's **Not recommended** line.
+- A column may be "—" for every row (for example no Smoke at all). The matching section (*Smoke Test Checklist*, *Manual Test Plan* or *Automated Test Recommendations*) then says "None." with the reason.
+- If there are no critical paths (only P3 changes), write "None." under the matrix and state the PR-wide minimum from `test-type-selection` in the summary (usually "Automated: the existing suite must pass in CI").
 
 ## Overall risk rules
 
