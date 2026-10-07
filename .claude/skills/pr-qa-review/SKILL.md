@@ -2,7 +2,7 @@
 name: pr-qa-review
 description: "Review a pull request and recommend what to test. Identifies critical paths and whether each needs manual, smoke, and/or automated testing. Use when asked to 'QA this PR', 'what should we test', 'test plan for PR 123', or 'critical paths for this change'. Recommendations only; never generates test code."
 argument-hint: "[PR number | PR URL | branch] [--save]"
-allowed-tools: Read, Grep, Glob, Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh repo view:*), Bash(git diff:*), Bash(git log:*), Bash(git show:*), Bash(git fetch:*), Bash(git blame:*), Bash(git symbolic-ref:*), Bash(git rev-parse:*), Agent
+allowed-tools: Read, Grep, Glob, Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh repo view:*), Bash(git diff:*), Bash(git log:*), Bash(git show:*), Bash(git fetch:*), Bash(git blame:*), Bash(git grep:*), Bash(git symbolic-ref:*), Bash(git rev-parse:*), Agent
 ---
 
 # PR QA Review (entry point)
