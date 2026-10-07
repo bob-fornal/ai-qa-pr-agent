@@ -11,7 +11,7 @@
 | [presentation/source/](presentation/source/) | The deck's source as published: `deck.json` (order, sections, fonts) and one HTML file per slide |
 | [presentation/build.js](presentation/build.js) | Rebuilds `index.html` and `speaker-notes.md` from `source/`: `node docs/presentation/build.js` |
 
-The online deck can also be exported to PowerPoint or PDF from its Share menu. In the offline viewer, the two diagram arrows and four guardrail icons are drawn with plain characters (→, 🔒, ⚠, 🔍, ✓) instead of the Slides runtime's shapes.
+The online deck can also be exported to PowerPoint or PDF from its Share menu. In the offline viewer, the three pipeline arrows and four guardrail icons are drawn with plain characters (→, 🔒, ⚠, 🔍, ✓) instead of the Slides runtime's shapes.
 
 **Length:** about 43 minutes of content plus Q&A. It fits 30–50 minutes using the cuts below.
 

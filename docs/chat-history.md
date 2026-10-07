@@ -207,7 +207,7 @@ Files: `test-type-selection` (new "selection rule" section), `qa-report-format` 
 
 - Copied the deck's source (`deck.json` and the 25 slide files) into `docs/presentation/source/`, exactly as published. The online Artifact stays the editable original.
 - Those slide files are fragments for the Slides runtime and can't be opened on their own, so `docs/presentation/build.js` generates:
-  - `index.html`: a standalone, dependency-free viewer with keyboard navigation, a speaker-notes panel, fullscreen, and print-to-PDF at one slide per page. The runtime-only elements are drawn with plain characters: the two diagram arrows as →, and the four guardrail icons as 🔒 ⚠ 🔍 ✓.
+  - `index.html`: a standalone, dependency-free viewer with keyboard navigation, a speaker-notes panel, fullscreen, and print-to-PDF at one slide per page. The runtime-only elements are drawn with plain characters: the three pipeline arrows as →, and the four guardrail icons as 🔒 ⚠ 🔍 ✓.
   - `speaker-notes.md`: every slide's notes and timings.
 - Checked in the browser pane: the cover, the pipeline diagram, the guardrails icons and the table slides render and scale to fit. A first check under viewport emulation showed the deck small in a corner; at the pane's real size it was centered and full-width, so that was a quirk of the emulation.
 - Linked from `docs/README.md` and `docs/presentation-guide.md`.
