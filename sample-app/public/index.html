@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Order Desk</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Order Desk</h1>
+
+      <form id="login-form">
+        <label for="username">Sign in as</label>
+        <select id="username">
+          <option value="sam">sam (sales)</option>
+          <option value="maria">maria (manager)</option>
+          <option value="ada">ada (admin)</option>
+        </select>
+        <button type="submit">Sign in</button>
+      </form>
+
+      <form id="order-form" hidden>
+        <label for="order-id">Order ID</label>
+        <input id="order-id" value="1001" />
+        <button type="submit">Load order</button>
+      </form>
+
+      <section id="order" hidden aria-live="polite">
+        <h2>Order <span id="order-number"></span></h2>
+        <dl>
+          <dt>Status</dt><dd id="status"></dd>
+          <dt>Subtotal</dt><dd id="subtotal"></dd>
+          <dt>Discount</dt><dd id="discount"></dd>
+          <dt>Tax</dt><dd id="tax"></dd>
+          <dt>Total</dt><dd id="total"></dd>
+        </dl>
+        <label for="discount-pct">Discount %</label>
+        <input id="discount-pct" type="number" min="0" max="50" value="0" />
+        <button id="apply-discount" type="button">Apply discount</button>
+        <button id="checkout" type="button">Checkout</button>
+      </section>
+
+      <p id="message" role="status"></p>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
