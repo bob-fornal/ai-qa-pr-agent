@@ -59,6 +59,37 @@ How the first run on `feature/discount-approval` scored against the [answer key]
 - **Wording:** the agent called 10 paths "the limit this process allows". The skill says "prefer 3–10" and "flag if more than 10", which is guidance, not a hard cap. Minor; no change made.
 - **Branch-mode reading:** the run worked because the prompt told the agent to read files with `git show <branch>:<path>`. That guidance has since been added to `pr-change-analysis` so it no longer depends on the prompt.
 
+## Run 2: PR #1, after the "at least one type" rule
+
+| | |
+|---|---|
+| **Date** | 2026-10-07 |
+| **Runner** | Claude Code, `pr-qa-reviewer` subagent, after commit `11c8c74` (every type optional per path, at least one required) |
+| **Input** | [PR #1](https://github.com/bob-fornal/ai-qa-pr-agent/pull/1): metadata from the public GitHub REST API (`gh` installed but not signed in), diff from `git diff origin/main...origin/feature/discount-approval`, head `8687dd2`. The agent was told not to read this file, the answer key or the earlier report. |
+| **Cost** | About 80k subagent tokens, 11 tool calls, about 7 minutes |
+| **Output** | [qa-reports/pr-1-test-recommendations.md](../qa-reports/pr-1-test-recommendations.md) |
+
+**Traps:** 16 of 16 detected again. T17 still wasn't exercised: the PR body on GitHub is the commit message, not [sample-pr-body.md](sample-pr-body.md).
+
+**Effect of the new rule.** Run 1 gave every path two or three types. Run 2 gave single-type answers where they fit, and explained each omission:
+
+| Path | Types | Why the others were left out |
+|---|---|---|
+| CP-3 Review authorization | Automated only | Nothing environment-specific for smoke; the role matrix covers it fully, so no manual |
+| CP-7 API contract | Automated only | Verifiable before deploy; only the in-repo UI uses it |
+| CP-10 Order screen | Manual only | No UI test layer; the API behind it is automated under CP-1/CP-2 and smoke covers the screen |
+| CP-5, CP-9 | Two types | One omission each, with a reason |
+
+Totals went from 13 automated / 7 smoke / 8 manual to 12 / 6 / 7: slightly leaner, with every critical path still covered by at least one type.
+
+**Run-to-run variation:** 6 P0 · 4 P1 (run 1: 4 · 6). Startup on Node 22 and flag configuration moved up to P0 (16); review authorization moved from 25 to 20. That's the roughly one-level variation expected. The arithmetic shown in the report makes the differences easy to discuss.
+
+**New findings not in run 1:**
+- The container `HEALTHCHECK` hardcodes port 3000 while the app honors `PORT`.
+- The cents rewrite changes the rounding policy (discount rounded before tax), so totals may differ by a cent from the last release. Finance sign-off recommended.
+
+**Issue found in the tooling:** the agent couldn't save its own report. `pr-qa-reviewer` has no file-write tool, and one bash heredoc of the whole report hit the Windows command-length limit. The report was saved from the agent's hand-back instead. In the normal `/pr-qa-review --save` flow the orchestrator (main conversation) writes the file, so this only affects running the single-pass agent directly.
+
 ## Re-running
 
 ```text

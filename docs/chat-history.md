@@ -144,3 +144,16 @@ The old rules nudged P0 paths toward two or more test types ("Every P0 path has 
 - **PR-wide minimum.** If there are no critical paths at all, the summary still recommends at least one type, usually "the existing automated suite must pass in CI".
 
 Files: `test-type-selection` (new "selection rule" section), `qa-report-format` (new matrix rules, "None." with a reason), `pr-qa-review` (verification step), `pr-test-strategist`, `pr-qa-reviewer` (Claude and Copilot self-checks), `docs/architecture.md`. Deck slides 10 and 14 were updated to match.
+
+---
+
+## Turn 5: Commit and rerun against PR #1
+
+### Prompt
+
+> Commit the change and rerun the agent against the PR: https://github.com/bob-fornal/ai-qa-pr-agent/pull/1
+
+- Committed the rule change as `11c8c74`.
+- Ran `pr-qa-reviewer` against PR #1: PR metadata from the public GitHub REST API (`gh` installed but not signed in), diff from `git`. The agent was told not to read the answer key or the earlier report, so the review stayed independent.
+- **Result:** 16/16 traps again, 6 P0 · 4 P1. The new rule showed up as single-type paths where they fit (authorization and the API contract got Automated only; the UI got Manual only), each omission explained. Two new findings: the health check ignores `PORT`, and the change in rounding policy needs finance sign-off. Details: [sample-pr-evaluation.md](sample-pr-evaluation.md#run-2-pr-1-after-the-at-least-one-type-rule).
+- **Problem:** the agent couldn't write its report. It has no write tool, and a single shell heredoc of about 20–30K characters hit the Windows command-length limit. The report was saved to [qa-reports/pr-1-test-recommendations.md](../qa-reports/pr-1-test-recommendations.md) from the agent's hand-back.
