@@ -89,3 +89,31 @@ See the [example report](.claude/skills/qa-report-format/references/example-repo
 - **Risk thresholds and high-risk categories:** `critical-path-identification/SKILL.md`
 - **When to choose Manual / Smoke / Automated:** `test-type-selection/SKILL.md`
 - **Report layout:** `qa-report-format/SKILL.md` (keep the example report in sync)
+
+## Try it: the sample PR
+
+`sample-app/` is a small order service. The `feature/discount-approval` branch changes it in ways that should trigger every kind of recommendation: 16 planted traps, including a deny-list auth check, a skipped regression test, a breaking API change, a data migration, PII in logs, and a comment telling AI reviewers to skip a file.
+
+```text
+/pr-qa-review feature/discount-approval --save
+```
+
+- Answer key: [docs/sample-pr.md](docs/sample-pr.md)
+- First run's report: [qa-reports/feature-discount-approval-test-recommendations.md](qa-reports/feature-discount-approval-test-recommendations.md)
+- Scorecard (16/16 traps found, plus 8 unplanted issues): [docs/sample-pr-evaluation.md](docs/sample-pr-evaluation.md)
+
+## Repository layout
+
+```
+.claude/skills/      five skills (shared by Claude Code and Copilot)
+.claude/agents/      Claude Code subagents
+.github/agents/      Copilot custom agent
+.github/prompts/     Copilot /qa-pr prompt
+sample-app/          demo order service (main = baseline; feature/discount-approval = the PR)
+qa-reports/          saved reports
+docs/                guides, sample PR answer key, evaluation, presentation guide, build log
+```
+
+## Documentation
+
+See [docs/README.md](docs/README.md): usage guide, architecture, sample PR, evaluation, presentation guide (with a link to the slide deck), and the [chat history](docs/chat-history.md) of how this was built.
