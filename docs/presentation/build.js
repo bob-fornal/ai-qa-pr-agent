@@ -13,7 +13,7 @@ deck.order.forEach((id, i) => {
     '<div style="width:64px;display:flex;align-items:center;justify-content:center;font-size:44px;color:#7FA8F0">→</div>');
   html = html.replace(/<x-icon name="(\w+)" style="color:([^;]+);width:(\d+)px;height:(\d+)px"><\/x-icon>/g,
     (_, n, c, w) => `<div aria-hidden="true" style="width:${w}px;font-size:${Math.round(w * 0.8)}px;line-height:1;color:${c};text-align:center">${icons[n] || '•'}</div>`);
-  html = html.replace(/^<section /, `<section class="slide" data-n="${i + 1}" `);
+  html = html.replace(/^<section id="([^"]+)"/, '<section id="slide-$1"').replace(/^<section /, `<section class="slide" data-n="${i + 1}" `);
   sections.push(html);
   const title = (html.match(/<h[12][^>]*>([\s\S]*?)<\/h[12]>/) || [, id])[1];
   const aside = (html.match(/<aside>([\s\S]*?)<\/aside>/) || [, ''])[1];
@@ -55,21 +55,21 @@ const page = `<!doctype html>
 </style>
 </head>
 <body>
-<div class="stage"><div class="frame" id="frame">
+<div class="stage"><div class="frame" id="deck-frame">
 ${sections.join('\n')}
 </div></div>
-<div class="notes" id="notes" hidden></div>
+<div class="notes" id="deck-notes" hidden></div>
 <nav class="bar" aria-label="Slide controls">
-  <button id="prev" type="button" aria-label="Previous slide">←</button>
-  <span id="count" aria-live="polite"></span>
-  <button id="next" type="button" aria-label="Next slide">→</button>
-  <button id="toggle-notes" type="button">Notes (N)</button>
+  <button id="deck-prev" type="button" aria-label="Previous slide">←</button>
+  <span id="deck-count" aria-live="polite"></span>
+  <button id="deck-next" type="button" aria-label="Next slide">→</button>
+  <button id="deck-toggle-notes" type="button">Notes (N)</button>
   <span>F: fullscreen · Ctrl+P: PDF</span>
 </nav>
 <script>
   const slides = [...document.querySelectorAll('.slide')];
-  const frame = document.getElementById('frame');
-  const notes = document.getElementById('notes');
+  const frame = document.getElementById('deck-frame');
+  const notes = document.getElementById('deck-notes');
   let current = 0;
   function fit() {
     const s = Math.min(innerWidth / 1920, innerHeight / 1080);
@@ -78,15 +78,16 @@ ${sections.join('\n')}
   function show(i) {
     current = Math.max(0, Math.min(slides.length - 1, i));
     slides.forEach((el, n) => { el.hidden = n !== current; });
-    document.getElementById('count').textContent = (current + 1) + ' / ' + slides.length;
+    document.getElementById('deck-count').textContent = (current + 1) + ' / ' + slides.length;
     const aside = slides[current].querySelector('aside');
     notes.textContent = aside ? aside.textContent : 'No notes for this slide.';
-    history.replaceState(null, '', '#' + (current + 1));
+    try { history.replaceState(null, '', '#' + (current + 1)); } catch (e) { /* some browsers refuse history updates on file:// pages */ }
   }
-  document.getElementById('prev').onclick = () => show(current - 1);
-  document.getElementById('next').onclick = () => show(current + 1);
-  document.getElementById('toggle-notes').onclick = () => { notes.hidden = !notes.hidden; };
+  document.getElementById('deck-prev').onclick = () => show(current - 1);
+  document.getElementById('deck-next').onclick = () => show(current + 1);
+  document.getElementById('deck-toggle-notes').onclick = () => { notes.hidden = !notes.hidden; };
   addEventListener('keydown', (e) => {
+    if (e.target.closest && e.target.closest('button') && (e.key === ' ' || e.key === 'Enter')) return;
     if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); show(current + 1); }
     else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); show(current - 1); }
     else if (e.key === 'Home') show(0);

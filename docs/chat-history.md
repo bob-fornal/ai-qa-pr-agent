@@ -239,3 +239,25 @@ Files: `test-type-selection` (new "selection rule" section), `qa-report-format` 
 
   All of these were fixed in the generator and the affected slides were re-rendered.
 - The generator is committed as `docs/presentation/build-pptx.js`. Google Slides import steps are in `docs/presentation-guide.md`.
+
+---
+
+## Turn 10: Viewer buttons not working
+
+### Prompts
+
+> In the original deck @docs/presentation/index.html the arrow keys are not working.
+
+> Arrows work from the keyboard. Buttons do not when clicked.
+
+- **Cause: a duplicate ID.**
+  - Slide 24 ("Where it could go next") has the section id `next`, and the viewer's → button also had id `next`. `getElementById('next')` returned the hidden slide, so the click handler was attached to the slide rather than the button.
+  - The browser pane confirmed it: the "button" measured 0×0, and a hit-test at its position returned the stage.
+  - ← worked only because no slide is called `prev`. The keyboard worked because its handler doesn't look anything up by ID.
+- **Fix** (in `docs/presentation/build.js`, then regenerated `index.html`):
+  - The viewer's own elements now use `deck-` IDs (`deck-next`, `deck-prev`, `deck-count`, `deck-notes`, `deck-toggle-notes`, `deck-frame`).
+  - Slide sections are prefixed `slide-<id>`, so the two sets can't collide again.
+  - Also hardened:
+    - the URL-fragment update is wrapped in `try`, because some browsers refuse `history.replaceState` on `file://` pages
+    - Space/Enter on a focused button no longer also advances the slide
+- **Verified** in the browser pane with real clicks at the buttons' screen positions: → twice reached 3/25, ← returned to 2/25, Notes opened the notes panel, and no IDs are duplicated.
