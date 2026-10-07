@@ -182,3 +182,17 @@ Files: `test-type-selection` (new "selection rule" section), `qa-report-format` 
 
 - New: `.claude/skills/dev-manual-checks/SKILL.md`, `.claude/skills/pr-dev-checks/SKILL.md`, `.claude/agents/pr-dev-checklist.md`, `.github/agents/pr-dev-checklist.agent.md`, `.github/prompts/dev-checks.prompt.md`
 - Updated: `README.md`, `CLAUDE.md`, `.github/copilot-instructions.md`, `docs/usage-guide.md`, `docs/architecture.md`
+
+---
+
+## Turn 7: Commit, push, and run the developer checklist on PR #1
+
+### Prompt
+
+> Commit, push, and run it against PR #1.
+
+- Committed as `4cec421`. **The push to `main` failed three times** with a server-side `remote rejected … (Internal Server Error)`. GitHub's status page reported all systems operational, and the push was small (about 24 KB), so the cause was on GitHub's side, not in the commits.
+- Ran `pr-dev-checklist` against PR #1 (PR metadata from the public API, diff from `git`). As designed, it reused the CP IDs from `qa-reports/pr-1-test-recommendations.md`.
+- **Result:** 11 checks, about 28 minutes (9 on P0 paths, 2 on P1). The order follows the skill: setup and the existing suite (expecting exactly one skipped test), boot/health, P0 happy and failure paths, P1, then a flag-off regression. Four checks are written to expose likely defects ("likely fails today"): checkout while pending / review after paid, a `NaN` threshold, the email in the logs, and the deny-list role check. Everything that needs staging, real data, a browser matrix or sign-off is under *Left for QA*, one line per CP.
+- **Verified:** every expected dollar amount and cent value in the checklist was recomputed independently ($48.15, $43.34, $32.26, $33.71, $40.93, $28.89; `paidTotalCents` 4334) and matched.
+- Saved from the agent's hand-back to [qa-reports/pr-1-dev-checks.md](../qa-reports/pr-1-dev-checks.md); the only change was adding the 🔴 marker the format asks for.
